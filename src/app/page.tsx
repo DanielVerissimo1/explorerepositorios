@@ -5,14 +5,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Search, Github } from "lucide-react"
+import { Search, Github, AlertCircle } from "lucide-react" // Adicionei o AlertCircle
 import Link from "next/link"
 import axios from "axios"
 
 const githubApi = axios.create({
-  baseURL: "https://api.github.com",
+  baseURL: process.env.NEXT_PUBLIC_GITHUB_API_BASE_URL,
   headers: {
-    Accept: "application/vnd.github.v3+json",
+    Accept: `application/vnd.github.${process.env.NEXT_PUBLIC_GITHUB_API_VERSION}+json`,
   },
 })
 
@@ -44,9 +44,9 @@ export default function HomePage() {
         },
       })
       setUsers(response.data.items || [])
-    } catch (error) {
-      console.error("Erro ao buscar usuários:", error)
-      setError("Ocorreu um erro ao buscar usuários. Tente novamente.")
+    } catch (err) {
+      console.error("Erro ao buscar usuários:", err)
+      setError("Ocorreu um erro ao buscar usuários. Tente novamente mais tarde.")
     } finally {
       setLoading(false)
     }
@@ -59,18 +59,16 @@ export default function HomePage() {
   }
 
   return (
-    <div className=" min-h-screen bg-gradient-to-b bg-[url('/Github.png')] bg-top bg-no-repeat bg-fixed from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-b bg-[url('/Github.png')] bg-top bg-no-repeat bg-fixed from-gray-50 to-gray-100">
       {/* Header */}
       <header className="sticky top-0 px-4 sm:px-6 py-4 z-10 md:px-35 lg:px-90">
-        <div className="max-w-6xl mx-auto flex items-center ">
+        <div className="max-w-6xl mx-auto flex items-center">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-100 rounded-full flex items-center justify-center">
-
-            <Github className="w-6 h-6 text-gray-800" />
+              <Github className="w-6 h-6 text-gray-800" />
             </div>
             <span className="font-semibold text-lg text-gray-800">GitHub Explorer</span>
           </div>
-          
         </div>
       </header>
 
@@ -111,6 +109,14 @@ export default function HomePage() {
           </Button>
         </div>
 
+        {/* Mensagem de erro */}
+        {error && (
+          <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-lg flex items-center gap-3">
+            <AlertCircle className="w-5 h-5" />
+            <span>{error}</span>
+          </div>
+        )}
+
         {/* Resultados */}
         <div className="space-y-3">
           {users.map((user) => (
@@ -147,7 +153,7 @@ export default function HomePage() {
           ))}
         </div>
 
-        {users.length === 0 && !loading && (
+        {users.length === 0 && !loading && !error && (
           <div className="text-center py-12">
             <div className="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
               <Search className="w-10 h-10 text-gray-400" />
@@ -159,8 +165,6 @@ export default function HomePage() {
           </div>
         )}
       </main>
-      
-
     </div>
   )
 }

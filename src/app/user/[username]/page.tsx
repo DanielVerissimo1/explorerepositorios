@@ -10,9 +10,9 @@ import Link from "next/link"
 import axios, { AxiosInstance } from "axios"
 
 const githubApi: AxiosInstance = axios.create({
-  baseURL: "https://api.github.com",
+  baseURL: process.env.NEXT_PUBLIC_GITHUB_API_BASE_URL,
   headers: {
-    Accept: "application/vnd.github.v3+json",
+    Accept: `application/vnd.github.${process.env.NEXT_PUBLIC_GITHUB_API_VERSION}+json`,
   },
 })
 
@@ -56,7 +56,7 @@ export default function UserPage() {
           githubApi.get(`/users/${username}/repos`, {
             params: {
               sort: "updated",
-              per_page: 10,
+              per_page: process.env.NEXT_PUBLIC_DEFAULT_PER_PAGE || 10,
             },
           }),
         ])
