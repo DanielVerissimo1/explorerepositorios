@@ -1,27 +1,24 @@
+import { Github } from "lucide-react"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Github, ArrowLeft } from "lucide-react"
 
 interface HeaderProps {
-  backButton?: boolean
-  title?: string
+  showBackButton?: boolean
 }
 
-export function Header({ backButton = false, title = "GitHub Explorer" }: HeaderProps) {
+export function Header({ showBackButton = false }: HeaderProps) {
   return (
-    <header className="bg-transparent px-4 sm:px-6 py-4">
-      <div className="flex flex-col justify-around sm:flex-row sm:items-center gap-2 sm:gap-4">
-        <div className="flex items-center gap-2">
-          <Github className="w-6 h-6" />
-          <span className="font-semibold text-lg">{title}</span>
-        </div>
-        
-        {backButton && (
-          <Link href="/" className="w-fit">
-            <Button variant="ghost" size="sm" className="w-full sm:w-auto">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Voltar
-            </Button>
+    <header className="sticky top-0 px-4 sm:px-6 py-4 z-10 md:px-35 lg:px-90">
+      <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gray-100 rounded-full flex items-center justify-center">
+            <Github className="w-6 h-6 text-gray-800" />
+          </div>
+          <span className="font-semibold text-lg text-gray-800">GitHub Explorer</span>
+        </Link>
+
+        {showBackButton && (
+          <Link href="/" className="text-sm text-gray-600 hover:text-gray-800 transition-colors">
+            ← Voltar para busca
           </Link>
         )}
       </div>

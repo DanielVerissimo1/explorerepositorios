@@ -1,25 +1,24 @@
 import { AlertCircle } from "lucide-react"
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 interface ErrorDisplayProps {
-  error: string
-  backLink?: string
-  className?: string
+  message: string
+  showBackButton?: boolean
 }
 
-export function ErrorDisplay({ 
-  error, 
-  backLink = "/", 
-  className = "" 
-}: ErrorDisplayProps) {
+export function ErrorDisplay({ message, showBackButton = false }: ErrorDisplayProps) {
   return (
-    <div className={`flex flex-col items-center justify-center ${className}`}>
-      <AlertCircle className="w-12 h-12 text-red-500 mb-4" />
-      <p className="text-red-600 mb-4 text-center">{error}</p>
-      <Link href={backLink}>
-        <Button variant="outline">Voltar</Button>
-      </Link>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-center">
+        <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+        <p className="text-red-600 mb-4">{message}</p>
+        {showBackButton && (
+          <Link href="/">
+            <Button>Voltar para busca</Button>
+          </Link>
+        )}
+      </div>
     </div>
   )
 }

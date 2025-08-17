@@ -1,28 +1,58 @@
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import type React from "react"
+import type { Metadata, Viewport } from "next"
+import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"] })
-
 export const metadata: Metadata = {
-  title: {
-    default: "GitHub Explorer",
-    template: "%s | GitHub Explorer",
+  title: "GitHub Explorer - Explore repositórios e perfis",
+  description:
+    "Descubra e explore perfis, repositórios e contribuições da comunidade open-source do GitHub de forma simples e intuitiva.",
+  keywords: ["GitHub", "repositórios", "open source", "desenvolvedor", "código", "perfil"],
+  authors: [{ name: "GitHub Explorer" }],
+  creator: "GitHub Explorer",
+  publisher: "GitHub Explorer",
+  robots: "index, follow",
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: "https://github-explorer.vercel.app",
+    title: "GitHub Explorer - Explore repositórios e perfis",
+    description: "Descubra e explore perfis, repositórios e contribuições da comunidade open-source do GitHub.",
+    siteName: "GitHub Explorer",
   },
-  description: "Explore repositórios e desenvolvedores no GitHub",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  twitter: {
+    card: "summary_large_image",
+    title: "GitHub Explorer - Explore repositórios e perfis",
+    description: "Descubra e explore perfis, repositórios e contribuições da comunidade open-source do GitHub.",
+  },
 }
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#10b981",
+}
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jetbrains-mono",
+})
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
-    <html lang="pt-BR">
-      <body className={`${inter.className} bg-gray-50`}>
-        {children}
-      </body>
+    <html lang="pt-BR" className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}>
+      <body>{children}</body>
     </html>
   )
 }

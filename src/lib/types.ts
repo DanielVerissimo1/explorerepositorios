@@ -19,3 +19,8 @@ export interface GitHubRepo {
   language?: string
   html_url: string
 }
+
+export interface SearchResult {
+  items: GitHubUser[]
+  total_count: number
+}
