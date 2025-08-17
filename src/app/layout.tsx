@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "https://github-explorer.vercel.app",
+    url: "https://explorerepositorios.vercel.app",
     title: "GitHub Explorer - Explore repositórios e perfis",
     description: "Descubra e explore perfis, repositórios e contribuições da comunidade open-source do GitHub.",
     siteName: "GitHub Explorer",

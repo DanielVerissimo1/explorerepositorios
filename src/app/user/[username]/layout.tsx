@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ username:
     openGraph: {
       title: `${username} - Perfil GitHub | GitHub Explorer`,
       description: `Explore o perfil do GitHub de ${username}, seus repositórios e contribuições para a comunidade open-source.`,
-      url: `https://github-explorer.vercel.app/user/${username}`,
+      url: `https://explorerepositorios.vercel.app/user/${username}`,
     },
     twitter: {
       title: `${username} - Perfil GitHub | GitHub Explorer`,
